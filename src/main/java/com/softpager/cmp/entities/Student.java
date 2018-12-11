@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softpager.cmp.utils.AuditModel;
 
 import lombok.Data;
@@ -50,7 +52,8 @@ public class Student extends AuditModel {
 	@OneToMany(fetch=FetchType.EAGER, cascade= {CascadeType.MERGE, 
 			CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinTable(name="course_student", joinColumns=@JoinColumn(name="student_id"), 
-	inverseJoinColumns=@JoinColumn(name="course_id"))
+	inverseJoinColumns=@JoinColumn(name="course_id"))	
+	@JsonIgnoreProperties("student")
 	private List<Course> courses;
 	
 	public Student() {	}

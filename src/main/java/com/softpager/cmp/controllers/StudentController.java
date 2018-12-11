@@ -37,7 +37,7 @@ public class StudentController {
 	
 	@GetMapping("/students")
 	public Page<Student> getStudents(@RequestParam(defaultValue= "0")int page){
-		 return studentService.getStudents( PageRequest.of(page, 4));
+		 return studentService.getStudents( PageRequest.of(page, 5));
 	}
 	
 	@GetMapping("/students/{id}")

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softpager.cmp.utils.AuditModel;
 
 import lombok.Data;
@@ -18,6 +20,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="courses")
 @SuppressWarnings("serial")
 @EqualsAndHashCode(callSuper=false)
+
 public class Course extends AuditModel{
 	
 	@Id
@@ -38,6 +41,7 @@ public class Course extends AuditModel{
 			CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinTable(name="course_student", joinColumns=@JoinColumn(name="course_id"), 
 	inverseJoinColumns=@JoinColumn(name="student_id"))
+	@JsonIgnoreProperties("courses")
 	private List<Student>students;
 	
 	
@@ -45,6 +49,7 @@ public class Course extends AuditModel{
 			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinTable(name = "course_instructor", joinColumns = @JoinColumn(name = "course_id"),
 	inverseJoinColumns = @JoinColumn(name = "instructor_id"))
+	@JsonIgnoreProperties("courses")
 	private Instructor instructor;
 
 	public Course() {}

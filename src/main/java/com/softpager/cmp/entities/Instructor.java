@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.softpager.cmp.utils.AuditModel;
 
 import lombok.Data;
@@ -47,8 +48,8 @@ public class Instructor extends AuditModel {
 	
 	@OneToMany(mappedBy = "instructor", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })		
+	@JsonIgnoreProperties("instructor")
 	private List<Course> courses;
-
 
 	public Instructor() {	}	
 	public Instructor(String firstName, String lastName, String mobileContact, String email, String title) {
