@@ -60,7 +60,7 @@ public class Instructor extends AuditModel {
 		this.title = title;
 	}
 
-	// // add convenience methods for bi-directional relationship
+	 // add convenience methods for bi-directional relationship
 
 	public void addCourseForInstructor(Course tempCourse) {
 		if (courses == null) {
