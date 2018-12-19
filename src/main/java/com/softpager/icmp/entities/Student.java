@@ -38,7 +38,7 @@ public class Student extends AuditModel {
 	@Column(name="gender")	
 	private String gender;
 	
-	@OneToMany(fetch=FetchType.EAGER, cascade= {CascadeType.MERGE, 
+	@ManyToMany(fetch=FetchType.EAGER, cascade= {CascadeType.MERGE, 
 			CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinTable(name="course_student", joinColumns=@JoinColumn(name="student_id"), 
 	inverseJoinColumns=@JoinColumn(name="course_id"))	

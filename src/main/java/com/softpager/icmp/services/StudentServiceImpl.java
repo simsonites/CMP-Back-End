@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.softpager.icmp.daos.StudentDao;
 import com.softpager.icmp.entities.Student;
 
-@Service
+@Service("studentService")
 public class StudentServiceImpl implements StudentService {
 
 	private StudentDao studentDao;

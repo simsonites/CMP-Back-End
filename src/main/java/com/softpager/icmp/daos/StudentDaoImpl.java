@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.softpager.icmp.entities.Student;
 
-@Repository
+@Repository("studentRepository")
 public class StudentDaoImpl implements StudentDao {
 
 	private EntityManager entityManager;	

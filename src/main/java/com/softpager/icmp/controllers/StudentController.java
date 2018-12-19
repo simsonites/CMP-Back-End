@@ -28,7 +28,8 @@ public class StudentController {
 
 	@GetMapping()	
 	public List<Student> getStudents() {
-		return  studentService.getStudents();
+		List<Student> allStudents = studentService.getStudents();
+		return  allStudents;
 	}
 	
 	@PostMapping()
