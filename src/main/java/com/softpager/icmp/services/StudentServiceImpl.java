@@ -45,4 +45,23 @@ public class StudentServiceImpl implements StudentService {
 		
 	}
 
+	@Override
+	@Transactional
+	public Student enrollCourses(long sId, long[] cIds) {		
+		return studentDao.enrollCourses(sId, cIds);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

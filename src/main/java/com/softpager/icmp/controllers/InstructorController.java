@@ -57,6 +57,7 @@ public class InstructorController {
 		//do some valid check here
 		 instructorService.delete(id);		
 	}
+
 	
 }
 

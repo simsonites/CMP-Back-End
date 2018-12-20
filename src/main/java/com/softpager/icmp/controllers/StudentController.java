@@ -1,6 +1,7 @@
 package com.softpager.icmp.controllers;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.softpager.icmp.entities.Course;
 import com.softpager.icmp.entities.Student;
+import com.softpager.icmp.services.CourseService;
 import com.softpager.icmp.services.StudentService;
 
 @RestController
@@ -20,18 +24,21 @@ import com.softpager.icmp.services.StudentService;
 public class StudentController {
 	
 	private StudentService studentService;
+	private CourseService courseService;
 	
-	@Autowired
-	public StudentController(StudentService studentService) {	
+	@Autowired	
+	public StudentController(StudentService studentService, CourseService courseService) {
 		this.studentService = studentService;
+		this.courseService = courseService;
 	}
+
 
 	@GetMapping()	
 	public List<Student> getStudents() {
 		List<Student> allStudents = studentService.getStudents();
 		return  allStudents;
 	}
-	
+
 	@PostMapping()
 	public Student create(@RequestBody Student theStudent) {
 		theStudent.setId(0);
@@ -53,6 +60,12 @@ public class StudentController {
 	@DeleteMapping("/{id}")	
 	public  void delete(@PathVariable  long id) {
 		 studentService.delete(id);
+	}
+	
+	@PostMapping("/enroll-for-course")
+	public Student enrollCourses(@RequestParam  long sId, @RequestParam  long[] cIds ) {
+		return  studentService.enrollCourses(sId, cIds);
+		
 	}
 
 }

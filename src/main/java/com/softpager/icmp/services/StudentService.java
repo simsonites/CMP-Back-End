@@ -14,5 +14,7 @@ public interface StudentService {
 
 	void delete(long id);
 
+	Student enrollCourses(long sId, long[] cIds);
+
 
 }
