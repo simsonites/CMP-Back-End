@@ -2,8 +2,13 @@ package com.softpager.icmp.controllers;
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,53 +24,48 @@ import com.softpager.icmp.entities.Student;
 import com.softpager.icmp.services.CourseService;
 import com.softpager.icmp.services.StudentService;
 
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api")
 public class StudentController {
 	
-	private StudentService studentService;
+private StudentService studentService;	
 	private CourseService courseService;
 	
-	@Autowired	
-	public StudentController(StudentService studentService, CourseService courseService) {
+	
+	@Autowired
+	public StudentController(StudentService studentService, CourseService courseService) {	
 		this.studentService = studentService;
 		this.courseService = courseService;
 	}
-
-
-	@GetMapping()	
-	public List<Student> getStudents() {
-		List<Student> allStudents = studentService.getStudents();
-		return  allStudents;
+	
+	@GetMapping("/students")
+	public Page<Student> getStudents(@RequestParam(defaultValue= "0")int page){
+		 return studentService.getStudents( PageRequest.of(page, 5));
 	}
-
-	@PostMapping()
-	public Student create(@RequestBody Student theStudent) {
+	
+	@GetMapping("/students/{id}")
+	public Optional<Student> getStudent(@PathVariable("id") long sId){
+		 return studentService.getStudent(sId);
+	}
+	
+	@PostMapping("/students")
+	public void addStudent(@RequestBody Student theStudent) {
 		theStudent.setId(0);
-		 studentService.save(theStudent);	
-		 return theStudent;
-	}	
-	
-	@PutMapping()	
-	public  Student update(@RequestBody Student theStudent) {
-	  studentService.save(theStudent);
-		return  theStudent;
+		studentService.addStudent(theStudent);		
 	}
 	
-	@GetMapping("/{id}")	
-	public  Student getStudent(@PathVariable  long id) {
-		return  studentService.getStudent(id);
+	@PutMapping("/students")
+	public void updateStudent(@RequestBody Student theStudent) {
+		studentService.updateStudent(theStudent);		
 	}
 	
-	@DeleteMapping("/{id}")	
-	public  void delete(@PathVariable  long id) {
-		 studentService.delete(id);
-	}
-	
-	@PostMapping("/enroll-for-course")
-	public Student enrollCourses(@RequestParam  long sId, @RequestParam  long[] cIds ) {
-		return  studentService.enrollCourses(sId, cIds);
-		
+	@DeleteMapping("/students/{studentId}")
+	public void deleteStudent(@PathVariable("studentId")  long theId) {
+		studentService.deleteStudent(theId);		
 	}
 
 }

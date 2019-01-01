@@ -1,54 +1,54 @@
 package com.softpager.icmp.services;
 
 import java.util.List;
+import java.util.Optional;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.softpager.icmp.daos.StudentDao;
 import com.softpager.icmp.entities.Student;
+
+import com.softpager.icmp.repositories.StudentRepository;
 
 @Service("studentService")
 public class StudentServiceImpl implements StudentService {
-
-	private StudentDao studentDao;
+	
+	
+	private StudentRepository studentRepository;	
 	
 	@Autowired
-	public StudentServiceImpl(StudentDao studentDao) {	
-		this.studentDao = studentDao;
+	public StudentServiceImpl(StudentRepository studentRepository) {
+		this.studentRepository = studentRepository;
+	}
+	
+	@Override
+	public Page<Student> getStudents(PageRequest page) {			
+		return  studentRepository.findAll(page);		
 	}
 
 	@Override
-	@Transactional
-	public Student save(Student theStudent) {		
-		return studentDao.save(theStudent);
+	public Optional<Student> getStudent(long sId) {	
+		Optional<Student> theStudent =  studentRepository.findById(sId);
+		return theStudent;
+	}
+
+	@Override	
+	public Student addStudent(Student theStudent) {
+	 return studentRepository.save(theStudent);		
 	}
 
 	@Override
-	@Transactional
-	public List<Student> getStudents() {		
-		return studentDao.getStudents();
+	public Student updateStudent(Student theStudent) {
+		return studentRepository.save(theStudent);		
 	}
 
-	@Override
-@Transactional
-	public Student getStudent(long id) {	
-		return studentDao.getStudent(id);
-	}
-
-	@Override
-	@Transactional
-	public void delete(long id) {
-	 studentDao.delete(id);
-		
-	}
-
-	@Override
-	@Transactional
-	public Student enrollCourses(long sId, long[] cIds) {		
-		return studentDao.enrollCourses(sId, cIds);
+	@Override	
+	public void deleteStudent(long theId) {
+		studentRepository.deleteById(theId);		
 	}
 
 }

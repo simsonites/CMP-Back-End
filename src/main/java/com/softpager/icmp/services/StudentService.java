@@ -1,20 +1,23 @@
 package com.softpager.icmp.services;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import com.softpager.icmp.entities.Student;
 
 public interface StudentService {
 
-	Student save(Student theStudent);
+	Page<Student> getStudents(PageRequest page);
 
-	List<Student> getStudents();
+	Optional<Student> getStudent(long sId);
 
-	Student getStudent(long id);
+	Student addStudent(Student theStudent);
 
-	void delete(long id);
-
-	Student enrollCourses(long sId, long[] cIds);
-
+	Student updateStudent(Student theStudent);
+	
+	void deleteStudent(long theId);
 
 }

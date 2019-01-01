@@ -1,4 +1,4 @@
-package com.softpager.icmp.daos;
+package com.softpager.icmp.repositories;
 
 import java.util.List;
 

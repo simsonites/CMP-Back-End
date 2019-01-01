@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.softpager.icmp.daos.CourseDao;
 import com.softpager.icmp.entities.Course;
+import com.softpager.icmp.repositories.CourseDao;
 
 @Service("courseService")
 public class CourseServiceImpl implements CourseService {

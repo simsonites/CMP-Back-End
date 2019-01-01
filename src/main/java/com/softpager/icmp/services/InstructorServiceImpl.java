@@ -7,8 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.softpager.icmp.daos.InstructorDao;
 import com.softpager.icmp.entities.Instructor;
+import com.softpager.icmp.repositories.InstructorDao;
 
 @Service("instructorService")
 public class InstructorServiceImpl implements InstructorService {
